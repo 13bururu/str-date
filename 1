@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+//структура стека
+struct Stack {
+	char x[100];//хранилище элементов
+	int top = -1;//вершина стека
+
+	//добавление элемента
+	void push(char c) {
+		x[++top] = c;
+	}
+	//извлечение элемента
+	char p() {
+		char c = x[top--];
+		return c;
+	}
+	//проверка на пустоту
+	bool empty() {
+		return top == -1;
+	}
+};
+
+int main() {
+	setlocale(LC_ALL, "Russian");
+	char a[100];
+	cin >> a;
+	int l = 0;
+	//определение количесва символов
+	while (a[l] != '\0') {
+		l++;
+	}
+	//проверка на четность символов 
+	if (l % 2 != 0) {
+		cout << "Нужно четное кол-во символов";
+		return 1;
+	}
+	int l_p = l / 2;//половина строки
+	char y[100];//итоговая строка
+	Stack s;
+	int schB = 0;//позиция в строке
+	//переворот первой половины строки
+	for (int i = 0; i < l_p; i++) {
+		s.push(a[i]);
+	}
+	while (!s.empty()) {
+		y[schB++] = s.p();
+	}
+	//переворот второй половины строки
+	for (int i = l_p; i < l; i++) {
+		s.push(a[i]);
+	}
+	while (!s.empty()) {
+		y[schB++] = s.p();
+
+	}
+	
+	y[schB] = '\0';//добавление 0 в конце строки для корректного вывода
+	cout << y << endl;
+	return 0;
+}
+
